@@ -1,0 +1,270 @@
+/* ===================== PAGE ===================== */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b1120;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fundo decorativo sutil */
+.login-page::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  top: -200px;
+  left: -200px;
+  pointer-events: none;
+}
+
+.login-page::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+  bottom: -150px;
+  right: -150px;
+  pointer-events: none;
+}
+
+/* ===================== CARD ===================== */
+.login-card {
+  display: flex;
+  width: 100%;
+  max-width: 980px;
+  min-height: 580px;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
+}
+
+/* ===================== LADO ESQUERDO ===================== */
+.login-left {
+  flex: 1;
+  background: linear-gradient(145deg, #1d4ed8 0%, #3b82f6 50%, #6366f1 100%);
+  color: white;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.brand .logo-circle {
+  width: 56px;
+  height: 56px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+  backdrop-filter: blur(8px);
+}
+
+.brand .logo-circle i {
+  font-size: 1.6rem;
+}
+
+.brand h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.03em;
+}
+
+.brand p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin: 0;
+  max-width: 280px;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.features .icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.features .icon i {
+  font-size: 0.8rem;
+}
+
+/* ===================== LADO DIREITO ===================== */
+.login-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  background: #ffffff;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 340px;
+}
+
+.form-header {
+  margin-bottom: 32px;
+}
+
+.form-header h2 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.03em;
+}
+
+.form-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+/* ===================== CAMPOS ===================== */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.field .error {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.8rem;
+  color: #ef4444;
+}
+
+/* ===================== BOTÕES ===================== */
+:host ::ng-deep .login-btn {
+  font-weight: 600 !important;
+  height: 46px !important;
+  border-radius: 12px !important;
+}
+
+:host ::ng-deep .google-btn {
+  height: 46px !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* ===================== DIVIDER ===================== */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 28px 0;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.divider span {
+  padding: 0 16px;
+}
+
+/* ===================== REGISTER ===================== */
+.register {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.register a {
+  color: #3b82f6;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register a:hover {
+  text-decoration: underline;
+}
+
+/* ===================== AJUSTES PRIMENG ===================== */
+:host ::ng-deep .p-password {
+  width: 100%;
+}
+
+:host ::ng-deep .p-password-input {
+  width: 100%;
+  border-radius: 10px !important;
+}
+
+:host ::ng-deep .p-inputtext {
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  font-size: 0.95rem !important;
+}
+
+:host ::ng-deep .p-checkbox .p-checkbox-box {
+  border-radius: 6px !important;
+}
+
+/* ===================== RESPONSIVO ===================== */
+@media (max-width: 860px) {
+  .login-card {
+    flex-direction: column;
+    max-width: 440px;
+    min-height: auto;
+  }
+
+  .login-left {
+    padding: 36px 28px;
+  }
+
+  .features {
+    display: none;
+  }
+
+  .login-right {
+    padding: 36px 28px 40px;
+  }
+
+  .brand h1 {
+    font-size: 1.6rem;
+  }
+}

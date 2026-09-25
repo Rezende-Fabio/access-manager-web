@@ -1,0 +1,67 @@
+<div class="login-page">
+  <div class="login-card">
+
+    <!-- Lado esquerdo -->
+    <div class="login-left">
+      <div class="brand">
+        <div class="logo-circle">
+          <i class="pi pi-shield"></i>
+        </div>
+        <h1>Gestão & Permissões</h1>
+        <p>Sistema de treinamento de gestão de usuários e controle de acesso.</p>
+      </div>
+
+      <ul class="features">
+        <li>
+          <div class="icon"><i class="pi pi-check"></i></div>
+          <span>Controle granular de permissões</span>
+        </li>
+        <li>
+          <div class="icon"><i class="pi pi-check"></i></div>
+          <span>Gestão de roles e grupos</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Lado direito -->
+    <div class="login-right">
+      <div class="form-wrapper">
+        <div class="form-header">
+          <h2>Bem-vindo</h2>
+          <p>Entre com suas credenciais para continuar</p>
+        </div>
+
+        @if (errorMessage()) {
+          <p-message severity="error" [text]="errorMessage()!" styleClass="w-full mb-4" />
+        }
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+          <div class="field">
+            <label for="user">Usuário</label>
+            <input pInputText id="user" type="text" class="w-full" formControlName="user" placeholder="seu usuário" />
+            @if (user?.invalid && user?.touched) {
+            <small class="error">
+              {{ user?.errors?.['required'] ? 'Usuário é obrigatório' : 'Usuário inválido' }}
+            </small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="password">Senha</label>
+            <p-password formControlName="password" [toggleMask]="true" [feedback]="false" placeholder="Digite sua senha"
+              styleClass="w-full" inputStyleClass="w-full" />
+            @if (password?.invalid && password?.touched) {
+            <small class="error">
+              {{ password?.errors?.['required'] ? 'Senha é obrigatória' : 'Mínimo 6 caracteres' }}
+            </small>
+            }
+          </div>
+
+          <p-button type="submit" label="Entrar" icon="pi pi-arrow-right" iconPos="right" styleClass="login-btn w-full"
+            [loading]="loading()" [disabled]="loginForm.invalid || loading()" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
