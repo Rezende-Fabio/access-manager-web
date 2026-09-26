@@ -1,7 +1,5 @@
 <div class="login-page">
   <div class="login-card">
-
-    <!-- Lado esquerdo -->
     <div class="login-left">
       <div class="brand">
         <div class="logo-circle">
@@ -23,7 +21,6 @@
       </ul>
     </div>
 
-    <!-- Lado direito -->
     <div class="login-right">
       <div class="form-wrapper">
         <div class="form-header">
@@ -32,17 +29,22 @@
         </div>
 
         @if (errorMessage()) {
-          <p-message severity="error" [text]="errorMessage()!" styleClass="w-full mb-4" />
+        <p-message severity="error" [text]="errorMessage()!" styleClass="w-full mb-4" />
         }
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
           <div class="field">
-            <label for="user">Usuário</label>
-            <input pInputText id="user" type="text" class="w-full" formControlName="user" placeholder="seu usuário" />
-            @if (user?.invalid && user?.touched) {
+            <label for="email">E-mail</label>
+            <input pInputText id="email" type="email" formControlName="email" placeholder="seu@email.com" class="w-full"
+              autocomplete="email" />
+            @if (email?.invalid && email?.touched) {
             <small class="error">
-              {{ user?.errors?.['required'] ? 'Usuário é obrigatório' : 'Usuário inválido' }}
+              @if (email?.errors?.['required']) {
+              E-mail é obrigatório
+              } @else if (email?.errors?.['email']) {
+              E-mail inválido
+              }
             </small>
             }
           </div>
