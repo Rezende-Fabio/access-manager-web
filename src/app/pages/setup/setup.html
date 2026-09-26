@@ -1,0 +1,148 @@
+<div class="setup-page">
+  <div class="setup-card">
+    <div class="setup-left">
+      <div class="brand">
+        <div class="logo-circle">
+          <i class="pi pi-cog"></i>
+        </div>
+        <h1>Configuração Inicial</h1>
+        <p>Vamos preparar o sistema para o primeiro uso. Preencha as informações da empresa e do administrador.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step" [class.active]="currentStep() === 1" [class.done]="currentStep() > 1">
+          <div class="step-number">1</div>
+          <div class="step-info">
+            <strong>Empresa / Filial</strong>
+            <span>Dados da unidade</span>
+          </div>
+        </div>
+        <div class="step" [class.active]="currentStep() === 2">
+          <div class="step-number">2</div>
+          <div class="step-info">
+            <strong>Administrador</strong>
+            <span>Usuário principal</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setup-right">
+      <div class="form-wrapper">
+
+        <div class="form-header">
+          <h2>{{ currentStep() === 1 ? 'Dados da Empresa' : 'Administrador do Sistema' }}</h2>
+          <p>{{ currentStep() === 1 ? 'Informações da filial ou unidade' : 'Quem terá acesso total ao sistema' }}</p>
+        </div>
+
+        @if (errorMessage()) {
+        <p-message severity="error" [text]="errorMessage()!" styleClass="w-full mb-4" />
+        }
+
+        <form [formGroup]="setupForm" (ngSubmit)="onSubmit()">
+          @if (currentStep() === 1) {
+          <div class="field">
+            <label for="branchName">Nome da Filial / Empresa</label>
+            <input pInputText id="branchName" formControlName="branchName" placeholder="Ex: Matriz São Paulo"
+              style="width: 100%" />
+            @if (branchName?.invalid && branchName?.touched) {
+            <small class="error">
+              {{ branchName?.errors?.['required'] ? 'Nome é obrigatório' : 'Mínimo 3 caracteres' }}
+            </small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="branchCnpj">CNPJ</label>
+            <input pInputText id="branchCnpj" formControlName="branchCnpj" placeholder="00.000.000/0000-00"
+              style="width: 100%" (input)="onCnpjInput($event)" maxlength="18" />
+            @if (branchCnpj?.invalid && branchCnpj?.touched) {
+            <small class="error">
+              {{ branchCnpj?.errors?.['required'] ? 'CNPJ é obrigatório' : 'CNPJ inválido' }}
+            </small>
+            }
+          </div>
+
+          <p-button type="button" label="Continuar" icon="pi pi-arrow-right" iconPos="right"
+            styleClass="w-full continue-btn" (onClick)="nextStep()" />
+          }
+
+          @if (currentStep() === 2) {
+          <div class="field">
+            <label for="adminName">Nome completo</label>
+            <input pInputText id="adminName" formControlName="adminName" placeholder="Ex: João Silva"
+              style="width: 100%" />
+            @if (adminName?.invalid && adminName?.touched) {
+            <small class="error">
+              {{ adminName?.errors?.['required'] ? 'Nome é obrigatório' : 'Mínimo 3 caracteres' }}
+            </small>
+            }
+          </div>
+
+          <div class="field">
+            <label for="adminEmail">E-mail</label>
+            <input pInputText id="adminEmail" type="email" formControlName="adminEmail" placeholder="admin@empresa.com"
+              style="width: 100%" />
+            @if (adminEmail?.invalid && adminEmail?.touched) {
+            <small class="error">
+              {{ adminEmail?.errors?.['required'] ? 'E-mail é obrigatório' : 'E-mail inválido' }}
+            </small>
+            }
+          </div>
+
+          <div class="actions">
+            <p-button type="button" label="Voltar" severity="secondary" [outlined]="true" styleClass="back-btn"
+              (onClick)="prevStep()" />
+            <p-button type="submit" label="Finalizar Setup" icon="pi pi-check" styleClass="finish-btn"
+              [loading]="loading()" [disabled]="setupForm.invalid || loading()" />
+          </div>
+          }
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<p-dialog [visible]="showSuccessModal()" [modal]="true" [closable]="false" [draggable]="false"
+  [style]="{ width: '440px' }" styleClass="success-dialog">
+  <ng-template pTemplate="header">
+    <div class="modal-header">
+      <div class="success-icon">
+        <i class="pi pi-check"></i>
+      </div>
+      <div>
+        <h3>Sistema configurado!</h3>
+        <p>Guarde os dados abaixo com segurança</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <div class="modal-body">
+    <div class="info-box">
+      <label>E-mail do administrador</label>
+      <strong>{{ setupResult()?.adminEmail }}</strong>
+    </div>
+
+    <div class="info-box password-box">
+      <label>Senha temporária</label>
+      <div class="password-row">
+        <strong class="password">{{ setupResult()?.temporaryPassword }}</strong>
+        <button type="button" class="copy-btn" (click)="copyPassword()" title="Copiar senha">
+          <i class="pi" [class.pi-check]="passwordCopied()" [class.pi-copy]="!passwordCopied()"></i>
+        </button>
+      </div>
+      @if (passwordCopied()) {
+      <small class="copied">Senha copiada!</small>
+      }
+    </div>
+
+    <div class="warning">
+      <i class="pi pi-exclamation-triangle"></i>
+      <span>{{ setupResult()?.message }}</span>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Ir para o Login" icon="pi pi-sign-in" styleClass="w-full go-login-btn" (onClick)="goToLogin()" />
+  </ng-template>
+</p-dialog>

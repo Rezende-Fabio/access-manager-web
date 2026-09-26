@@ -1,0 +1,17 @@
+<div class="alert-container">
+  @for (alert of alerts; track alert.id) {
+  <div class="alert-box" [ngClass]="getAlertClass(alert)" [@alertAnimation]>
+    <div class="alert-icon">
+      <i [class]="getAlertIcon(alert)"></i>
+    </div>
+
+    <div class="alert-message" [innerHTML]="alert.message"></div>
+
+    <button class="alert-close-btn" (click)="removeAlert(alert.id)" title="Fechar">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <div class="alert-progress-bar" [style.--duration.s]="alert.seconds"></div>
+  </div>
+  }
+</div>

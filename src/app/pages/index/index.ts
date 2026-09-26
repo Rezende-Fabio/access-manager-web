@@ -34,7 +34,7 @@ import { PasswordModule } from 'primeng/password';
   templateUrl: './index.html',
   styleUrl: './index.css',
 })
-export class Index {
+export class IndexPage {
   loginForm: FormGroup;
   loading = signal(false);
   errorMessage = signal<string | null>(null);
@@ -44,14 +44,14 @@ export class Index {
     private router: Router
   ) {
     this.loginForm = this.fb.group({
-      user: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       remember: [false]
     });
   }
 
-  get user() {
-    return this.loginForm.get('user');
+  get email() {
+    return this.loginForm.get('email');
   }
 
   get password() {
@@ -68,9 +68,9 @@ export class Index {
     this.errorMessage.set(null);
 
     setTimeout(() => {
-      const { user, password } = this.loginForm.value;
+      const { email, password } = this.loginForm.value;
 
-      if (user === 'admin' && password === '123456') {
+      if (email === 'admin@teste.com' && password === '123456') {
         console.log('Login realizado:', this.loginForm.value);
       } else {
         this.errorMessage.set('Usuário/senha inválidos.');
